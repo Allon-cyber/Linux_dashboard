@@ -19,6 +19,42 @@ A web-based dashboard for monitoring and managing a Linux system using Flask.
 - Linux system (tested on Ubuntu/Debian)
 - sudo privileges for system actions
 
+### Installing Python
+
+If Python is not installed on your system:
+
+#### Ubuntu/Debian:
+```bash
+sudo apt update
+sudo apt install python3 python3-pip python3-venv
+```
+
+#### CentOS/RHEL:
+```bash
+sudo yum install python3 python3-pip
+# or for newer versions:
+sudo dnf install python3 python3-pip
+```
+
+#### Fedora:
+```bash
+sudo dnf install python3 python3-pip
+```
+
+#### Arch Linux:
+```bash
+sudo pacman -S python python-pip
+```
+
+#### Windows (for development):
+Download from [python.org](https://www.python.org/downloads/) and install.
+
+Verify installation:
+```bash
+python3 --version
+pip3 --version
+```
+
 ## Installation
 
 1. Clone the repository:
