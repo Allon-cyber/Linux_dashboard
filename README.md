@@ -23,7 +23,7 @@ A web-based dashboard for monitoring and managing a Linux system using Flask.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/linux_dashboard.git
+   git clone https://github.com/Allon-cyber/linux_dashboard.git
    cd linux_dashboard
    ```
 
