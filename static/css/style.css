@@ -1,0 +1,125 @@
+/* Dark theme styles */
+body {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: #ecf0f1;
+    min-height: 100vh;
+}
+
+.container {
+    background: rgba(44, 62, 80, 0.9);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: #ecf0f1;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.card {
+    background: rgba(52, 73, 94, 0.8);
+    border: 1px solid #34495e;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    color: #ecf0f1;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background: rgba(41, 128, 185, 0.8) !important;
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: bold;
+    color: #ecf0f1;
+}
+
+.table {
+    color: #ffffff;
+    background: rgba(52, 73, 94, 0.9);
+    border: 1px solid #34495e;
+}
+
+.table th {
+    background-color: rgba(41, 128, 185, 1);
+    border-color: #34495e;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.table td {
+    border-color: #34495e;
+    color: #ffffff;
+    background: rgba(52, 73, 94, 0.9);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(52, 73, 94, 0.7);
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: rgba(52, 73, 94, 0.5);
+}
+
+pre {
+    background: rgba(52, 73, 94, 0.8);
+    color: #ecf0f1;
+    border: 1px solid #34495e;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.btn {
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-danger {
+    background: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.btn-warning {
+    background: #f39c12;
+    border-color: #f39c12;
+}
+
+.btn-success {
+    background: #27ae60;
+    border-color: #27ae60;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.nav-tabs .nav-link {
+    background: rgba(52, 73, 94, 0.8);
+    border: 1px solid #34495e;
+    border-radius: 10px 10px 0 0;
+    font-weight: bold;
+    color: #ecf0f1;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+.form-control {
+    background: rgba(52, 73, 94, 0.8);
+    border: 1px solid #34495e;
+    color: #ecf0f1;
+}
+
+.form-control:focus {
+    background: rgba(52, 73, 94, 0.9);
+    border-color: #3498db;
+    color: #ecf0f1;
+}

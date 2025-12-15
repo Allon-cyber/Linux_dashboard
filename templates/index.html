@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="fas fa-server"></i> Linux Dashboard</h1>
+            <a href="/logout" class="btn btn-outline-light btn-sm">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+        <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="system-tab" data-bs-toggle="tab" data-bs-target="#system" type="button" role="tab">System Info</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="processes-tab" data-bs-toggle="tab" data-bs-target="#processes" type="button" role="tab">Processes</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="network-tab" data-bs-toggle="tab" data-bs-target="#network" type="button" role="tab">Network</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="actions-tab" data-bs-toggle="tab" data-bs-target="#actions" type="button" role="tab">Actions</button>
+            </li>
+        </ul>
+        <div class="tab-content mt-4" id="dashboardTabsContent">
+            <div class="tab-pane fade show active" id="system" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header bg-primary text-white">
+                                <i class="fas fa-chart-line"></i> CPU Usage
+                            </div>
+                            <div class="card-body">
+                                <canvas id="cpuChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header bg-success text-white">
+                                <i class="fas fa-memory"></i> Memory Usage
+                            </div>
+                            <div class="card-body">
+                                <canvas id="memoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header bg-warning text-white">
+                                <i class="fas fa-hdd"></i> Disk Usage
+                            </div>
+                            <div class="card-body">
+                                <canvas id="diskChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header bg-info text-white">
+                                <i class="fas fa-clock"></i> System Info
+                            </div>
+                            <div class="card-body">
+                                <p><i class="fas fa-microchip"></i> CPU: <span id="cpu-text">Loading...</span>%</p>
+                                <p><i class="fas fa-memory"></i> Memory: <span id="memory-text">Loading...</span>% (<span id="memory-used">0</span> MB / <span id="memory-total">0</span> MB)</p>
+                                <p><i class="fas fa-hdd"></i> Disk: <span id="disk-text">Loading...</span>% (<span id="disk-used">0</span> GB / <span id="disk-total">0</span> GB)</p>
+                                <p><i class="fas fa-clock"></i> Uptime: <span id="uptime">Loading...</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="processes" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">Top Processes</div>
+                    <div class="card-body">
+                        <table class="table table-striped" id="processes-table">
+                            <thead>
+                                <tr>
+                                    <th>PID</th>
+                                    <th>Name</th>
+                                    <th>CPU %</th>
+                                    <th>Memory %</th>
+                                </tr>
+                            </thead>
+                            <tbody id="processes-body">
+                                <!-- Processes will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="network" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">Network Information</div>
+                    <div class="card-body">
+                        <p>Bytes Sent: <span id="net-sent">Loading...</span></p>
+                        <p>Bytes Received: <span id="net-recv">Loading...</span></p>
+                        <p>Active Connections: <span id="net-connections">Loading...</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="actions" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-power-off"></i> Basic Actions
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-danger me-2 mb-2" id="shutdown-btn">Shutdown</button>
+                                <button class="btn btn-warning me-2 mb-2" id="restart-btn">Restart</button>
+                                <button class="btn btn-success mb-2" id="update-btn">Update System</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-user-shield"></i> Security
+                            </div>
+                            <div class="card-body">
+                                <a href="/change_password" class="btn btn-info w-100">
+                                    <i class="fas fa-key"></i> Change Password
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-terminal"></i> Run Command
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="command-input" placeholder="Command (e.g., ls -la)">
+                                </div>
+                                <button class="btn btn-info" id="run-command-btn">Run Command</button>
+                                <div id="command-output" class="mt-3" style="display: none;">
+                                    <pre id="command-result"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-file-alt"></i> System Logs
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-dark" id="view-logs-btn">View Last 20 Log Lines</button>
+                                <div id="logs-output" class="mt-3" style="display: none;">
+                                    <pre id="logs-result"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
