@@ -96,6 +96,10 @@ nohup python app.py &
 
 #### Option 2: Using systemd (recommended for production)
 1. Create a service file `/etc/systemd/system/linux-dashboard.service`:
+   ```bash
+   sudo nano /etc/systemd/system/linux-dashboard.service
+   ```
+   Paste the following content:
    ```ini
    [Unit]
    Description=Linux Dashboard
